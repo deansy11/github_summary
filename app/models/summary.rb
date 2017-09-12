@@ -11,7 +11,6 @@ class Summary < ApplicationRecord
   end
 
   def repos
-
     repos_response.sort do |a, b|
       b["pushed_at"].to_date <=> a["pushed_at"].to_date
     end
@@ -26,6 +25,16 @@ class Summary < ApplicationRecord
     url = "#{GITHUB_API_URL}/users/#{self.username}/repos"
     response = authenticated_get(url)
     self.repos_response = response.to_a
+  end
+
+  def ready?
+    self.user_response != nil && self.repos_response != nil
+  end
+
+  def fetch_data!
+    self.get_user
+    self.get_repos
+    self.save
   end
 
   def authenticated_get(url)
