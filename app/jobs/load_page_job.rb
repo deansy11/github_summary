@@ -5,6 +5,5 @@ class LoadPageJob < ApplicationJob
     summary.get_user
     summary.get_repos
     summary.save
-
   end
 end

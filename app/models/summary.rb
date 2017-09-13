@@ -17,24 +17,24 @@ class Summary < ApplicationRecord
   end
 
   def get_user
-    url = "#{GITHUB_API_URL}/users/#{self.username}"
+    url = "#{GITHUB_API_URL}/users/#{username}"
     self.user_response = authenticated_get(url)
   end
 
   def get_repos
-    url = "#{GITHUB_API_URL}/users/#{self.username}/repos"
+    url = "#{GITHUB_API_URL}/users/#{username}/repos"
     response = authenticated_get(url)
     self.repos_response = response.to_a
   end
 
   def ready?
-    self.user_response != nil && self.repos_response != nil
+    user_response.present? && repos_response.present?
   end
 
   def fetch_data!
-    self.get_user
-    self.get_repos
-    self.save
+    get_user
+    get_repos
+    save
   end
 
   def authenticated_get(url)
