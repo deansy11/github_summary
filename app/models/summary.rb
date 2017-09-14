@@ -38,8 +38,8 @@ class Summary < ApplicationRecord
   end
 
   def authenticated_get(url)
-  response = HTTParty.get(url, headesrs: {
-      authorization: "token #{ENV["GITHUB_PERSONAL_ACCESS_TOKEN"]}", "User-Agent": "deansy11"
+  response = HTTParty.get(url, headers: {
+      "Authorization": "token #{ENV["GITHUB_PERSONAL_ACCESS_TOKEN"]}", "User-Agent": "deansy11"
       })
 
     if response.code >= 200 && response.code < 300

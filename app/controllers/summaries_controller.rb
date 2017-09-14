@@ -15,7 +15,7 @@ class SummariesController < ApplicationController
       end
     else
       if !@summary.ready?
-        LoadPageJob.perform_later(@summary)
+        LoadPageJob.perform_later(@summary.id)
       end
     end
   end
